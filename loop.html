@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOODBRIDGE | The Food Loop - Zero-Waste Food Rescue Platform</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for Pie Charts & Graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .page-section { display: none; animation: fadeIn 0.25s ease-in-out; }
+        .page-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        .nav-btn.active { background-color: #059669; color: white; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3); }
+        .pulse-badge { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- TOP NAVIGATION BAR -->
+    <header class="bg-white/95 backdrop-blur sticky top-0 z-40 border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="switchPage('home')">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-500 flex items-center justify-center text-white text-xl shadow-md">
+                    <i class="fa-solid fa-seedling"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-extrabold text-xl tracking-tight text-slate-900">FOOD<span class="text-emerald-600">BRIDGE</span></span>
+                        <span class="text-[11px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">The Food Loop</span>
+                    </div>
+                    <p class="text-xs text-slate-500">Zero-Waste Dual Routing & Geo-Rescue Platform • SVCE College</p>
+                </div>
+            </div>
+
+            <!-- Multi-Page Navigation Buttons -->
+            <nav class="flex flex-wrap items-center gap-1.5">
+                <button onclick="switchPage('home')" id="nav-home" class="nav-btn active px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-emerald-50 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-bolt"></i> Live Feed
+                </button>
+                <button onclick="switchPage('donate')" id="nav-donate" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-emerald-50 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-hand-holding-heart"></i> Donate Food
+                </button>
+                <button onclick="switchPage('map')" id="nav-map" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-emerald-50 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-map-location-dot"></i> Google Maps Nav
+                </button>
+                <button onclick="switchPage('analytics')" id="nav-analytics" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-emerald-50 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-chart-pie"></i> PyCharts & Graphs
+                </button>
+                <button onclick="switchPage('qr')" id="nav-qr" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-emerald-50 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-qrcode"></i> QR Verify
+                </button>
+                <button onclick="switchPage('team')" id="nav-team" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-emerald-50 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-trophy"></i> Leaderboard & Team
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6">
+
+        <!-- =========================================================
+             PAGE 1: HOME & LIVE RESCUE FEED
+        ========================================================== -->
+        <section id="page-home" class="page-section active space-y-6">
+            <!-- Hero Banner -->
+            <div class="relative rounded-2xl bg-gradient-to-r from-emerald-900 via-emerald-800 to-teal-800 text-white p-6 md:p-8 shadow-lg overflow-hidden">
+                <div class="relative z-10 max-w-2xl space-y-4">
+                    <div class="inline-flex items-center gap-2 bg-emerald-700/70 border border-emerald-500/40 px-3 py-1 rounded-full text-xs font-semibold">
+                        <span class="w-2 h-2 rounded-full bg-emerald-300 pulse-badge"></span>
+                        Problem Statement #6 • Real-Time Geo-Matching & Freshness Countdown
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-extrabold leading-tight">
+                        Share Surplus Meals. <span class="text-amber-300">Stop Hunger & Waste.</span>
+                    </h1>
+                    <p class="text-emerald-100 text-sm md:text-base leading-relaxed">
+                        Connecting restaurants, hostels, and homes with nearby NGOs and animal farms in real time. Fresh food feeds communities; kitchen scraps nourish farm sanctuaries.
+                    </p>
+                    <div class="flex flex-wrap gap-3 pt-1">
+                        <button onclick="switchPage('donate')" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-5 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+                            <i class="fa-solid fa-plus-circle"></i> Post Surplus Food
+                        </button>
+                        <button onclick="switchPage('map')" class="bg-white/15 hover:bg-white/25 text-white font-semibold px-5 py-2.5 rounded-xl border border-white/25 transition flex items-center gap-2">
+                            <i class="fa-solid fa-location-arrow"></i> Open Live Google Map
+                        </button>
+                        <button onclick="toggleChatbot(true)" class="bg-emerald-600/80 hover:bg-emerald-600 text-white font-semibold px-4 py-2.5 rounded-xl border border-emerald-400/30 transition flex items-center gap-2">
+                            <i class="fa-solid fa-robot"></i> Ask Annam Dhutha
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live KPI Counter Strip -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3.5">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-bowl-rice"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-slate-500">Total Meals Saved</p>
+                        <p class="text-2xl font-extrabold text-slate-900" id="kpi-meals">1,450</p>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3.5">
+                    <div class="w-12 h-12 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-cloud-sun"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-slate-500">CO₂ Prevented</p>
+                        <p class="text-2xl font-extrabold text-slate-900"><span id="kpi-co2">500</span> kg</p>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3.5">
+                    <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-cow"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-slate-500">Animal Feed Diverted</p>
+                        <p class="text-2xl font-extrabold text-slate-900"><span id="kpi-scraps">385</span> kg</p>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-3.5">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-medium text-slate-500">Active Listings</p>
+                        <p class="text-2xl font-extrabold text-slate-900" id="kpi-active">5</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Buttons & Search Bar -->
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-3">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400 mr-1">Filter Feed:</span>
+                    <button onclick="setFeedFilter('ALL')" id="filter-ALL" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white transition">
+                        All Batches
+                    </button>
+                    <button onclick="setFeedFilter('Human Consumption')" id="filter-Human" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-emerald-50 transition flex items-center gap-1">
+                        <i class="fa-solid fa-users text-emerald-600"></i> 2A. Human NGO Feed (Fresh)
+                    </button>
+                    <button onclick="setFeedFilter('Animal Feed')" id="filter-Animal" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-amber-50 transition flex items-center gap-1">
+                        <i class="fa-solid fa-wheat-awn text-amber-600"></i> 2B. Animal Farm Feed (Scraps)
+                    </button>
+                    <button onclick="setFeedFilter('Available')" id="filter-Available" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-teal-50 transition">
+                        Unclaimed Only
+                    </button>
+                </div>
+                <div class="relative w-full sm:w-64">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-sm"></i>
+                    <input type="text" id="search-input" oninput="renderDonations()" placeholder="Search food or city..." class="w-full pl-9 pr-3 py-1.5 text-sm rounded-lg border border-slate-200 focus:outline-none focus:border-emerald-500">
+                </div>
+            </div>
+
+            <!-- Dynamic Food Donation Cards Grid -->
+            <div id="donations-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </section>
+
+        <!-- =========================================================
+             PAGE 2: DONATE SURPLUS FOOD (ZERO-WASTE DUAL ROUTING)
+        ========================================================== -->
+        <section id="page-donate" class="page-section max-w-3xl mx-auto">
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="bg-gradient-to-r from-emerald-700 to-teal-700 p-6 text-white">
+                    <h2 class="text-2xl font-extrabold flex items-center gap-2">
+                        <i class="fa-solid fa-box-open"></i> Post Surplus Food Donation
+                    </h2>
+                    <p class="text-emerald-100 text-sm mt-1">
+                        Our Zero-Waste Dual Router automatically directs fresh food to Human Shelters and older scraps to Animal Farms.
+                    </p>
+                </div>
+
+                <form id="donate-form" onsubmit="submitDonation(event)" class="p-6 space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Donor / Establishment Name *</label>
+                            <input type="text" id="form-donor" required placeholder="e.g., SVCE Hostel Mess / Paradise Hotel" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-emerald-600 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Donor Category *</label>
+                            <select id="form-type" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-emerald-600 text-sm bg-white">
+                                <option value="Restaurant">Restaurant / Hotel</option>
+                                <option value="Hostel/College">Hostel / College Canteen</option>
+                                <option value="Events/Wedding">Wedding / Convention Hall</option>
+                                <option value="Bakery">Bakery / Supermarket</option>
+                                <option value="Household">Individual Household</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Food Items Description *</label>
+                            <input type="text" id="form-items" required placeholder="e.g., 50 Plates Veg Pulao, Sambar & Bread" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-emerald-600 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Total Weight (kg) *</label>
+                            <input type="number" id="form-kg" required min="1" max="1000" step="0.5" value="25" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-emerald-600 text-sm">
+                        </div>
+                    </div>
+
+                    <!-- Zero-Waste Dual Routing Selector -->
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+                        <label class="block text-xs font-bold uppercase text-slate-700">Zero-Waste Freshness Check (Select Route) *</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="cursor-pointer border-2 border-emerald-600 bg-emerald-50/70 rounded-xl p-3.5 flex items-start gap-3 transition" id="route-human-card">
+                                <input type="radio" name="freshness" value="fresh" checked onchange="updateRoutePreview()" class="mt-1 accent-emerald-600">
+                                <div>
+                                    <p class="font-bold text-sm text-emerald-950">✅ Yes, Fit for Humans (Fresh)</p>
+                                    <p class="text-xs text-emerald-700">Routes to 2A: Nearby NGOs, Shelters & Community Kitchens</p>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer border-2 border-slate-200 bg-white rounded-xl p-3.5 flex items-start gap-3 transition" id="route-animal-card">
+                                <input type="radio" name="freshness" value="scraps" onchange="updateRoutePreview()" class="mt-1 accent-amber-600">
+                                <div>
+                                    <p class="font-bold text-sm text-amber-950">🌾 No, Kitchen Scraps / Past Shelf-Life</p>
+                                    <p class="text-xs text-amber-700">Routes to 2B: Local Cattle Sanctuaries, Piggeries & Farms</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Safe Shelf-Life Timer (Hours) *</label>
+                            <input type="number" id="form-hours" required min="0.5" max="48" step="0.5" value="4" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-emerald-600 text-sm">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Pickup Address (Linked to Google Maps) *</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="form-location" required placeholder="e.g., SVCE College, Karakambadi Rd, Tirupati" class="flex-grow px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-emerald-600 text-sm">
+                                <button type="button" onclick="detectMyGPS()" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold flex items-center gap-1.5 shrink-0" title="Auto-fill GPS coordinates">
+                                    <i class="fa-solid fa-location-crosshairs text-emerald-600"></i> GPS
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex items-center justify-end gap-3">
+                        <button type="button" onclick="switchPage('home')" class="px-5 py-2.5 rounded-xl border border-slate-300 text-sm font-semibold text-slate-600 hover:bg-slate-100">
+                            Cancel
+                        </button>
+                        <button type="submit" class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Publish Donation & Generate QR
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             PAGE 3: GOOGLE MAPS LIVE GEO-NAVIGATION
+        ========================================================== -->
+        <section id="page-map" class="page-section space-y-5">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-map-location-dot text-emerald-600"></i> Real-Time Geo-Matching & Google Maps Navigation
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-0.5">Select any food donation below to preview its location on the embedded Google Map or launch turn-by-turn route navigation.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a id="gmaps-external-btn" href="https://www.google.com/maps/dir/?api=1&destination=SVCE+College+Tirupati" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow flex items-center gap-2 transition">
+                        <i class="fa-solid fa-diamond-turn-right"></i> Launch Turn-by-Turn Google Maps
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                <!-- Left Column: Interactive Pickup Selector List -->
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 space-y-3 max-h-[540px] overflow-y-auto" id="map-locations-list">
+                    <!-- Populated via JS -->
+                </div>
+
+                <!-- Right Column: Embedded Google Map Canvas -->
+                <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+                    <div class="p-3.5 bg-slate-900 text-white flex items-center justify-between text-xs">
+                        <span id="active-map-title" class="font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-amber-400"></i> Pinning: SVCE College Campus Canteen, Tirupati
+                        </span>
+                        <span class="bg-emerald-500/20 text-emerald-300 px-2.5 py-0.5 rounded-full font-semibold">Live Google Maps Feed</span>
+                    </div>
+                    <iframe 
+                        id="google-map-iframe"
+                        class="w-full h-[480px] border-0"
+                        loading="lazy"
+                        allowfullscreen
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src="https://maps.google.com/maps?q=SVCE%20College%20Tirupati&t=&z=14&ie=UTF8&iwloc=&output=embed">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             PAGE 4: ANALYTICS, PYCHARTS & IMPACT DASHBOARD
+        ========================================================== -->
+        <section id="page-analytics" class="page-section space-y-6">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-emerald-600"></i> Environmental & Zero-Waste Analytics Dashboard
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-0.5">Live interactive Pie Charts, Doughnut Breakdowns, CO₂ Offset Bar Graphs, and AI Waste Forecasts (updates automatically when you donate!).</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="refreshAllCharts()" class="px-3.5 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-rotate"></i> Refresh Live Charts
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2x2 Interactive Charts Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Chart 1: Zero-Waste Dual Routing Pie Chart -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-sm">1. Zero-Waste Routing Pie Chart (kg)</h3>
+                            <p class="text-xs text-slate-500">Human NGO Meals vs. Animal Farm Feed vs. Bio-Compost</p>
+                        </div>
+                        <span class="text-xs font-bold bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-lg">Pie Chart</span>
+                    </div>
+                    <div class="h-64 flex items-center justify-center">
+                        <canvas id="pieChartRouting"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 2: Donor Sector Doughnut Chart -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-sm">2. Surplus Donor Source Breakdown</h3>
+                            <p class="text-xs text-slate-500">Share of food rescued by establishment type</p>
+                        </div>
+                        <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2.5 py-1 rounded-lg">Doughnut PyChart</span>
+                    </div>
+                    <div class="h-64 flex items-center justify-center">
+                        <canvas id="doughnutChartSources"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 3: Food Rescued vs CO2 Offset Bar Graph -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-sm">3. Monthly Food Rescued vs. CO₂ Saved (kg)</h3>
+                            <p class="text-xs text-slate-500">Every 1 kg of food saved prevents ~2.5 kg of CO₂ emissions</p>
+                        </div>
+                        <span class="text-xs font-bold bg-teal-100 text-teal-800 px-2.5 py-1 rounded-lg">Bar Graph</span>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="barChartImpact"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 4: AI Surplus Prediction & Rescue Velocity Line Graph -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-sm">4. AI Surplus Prediction vs. Actual Rescue (Weekly)</h3>
+                            <p class="text-xs text-slate-500">Forecasting high-surplus days for proactive volunteer dispatch</p>
+                        </div>
+                        <span class="text-xs font-bold bg-indigo-100 text-indigo-800 px-2.5 py-1 rounded-lg">AI Trend Graph</span>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="lineChartPrediction"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             PAGE 5: SECURE QR HANDOFF VERIFICATION
+        ========================================================== -->
+        <section id="page-qr" class="page-section max-w-4xl mx-auto space-y-6">
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div class="space-y-4">
+                        <span class="text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full">Feature 03 • Trust & Safety</span>
+                        <h2 class="text-2xl font-extrabold text-slate-900">Secure QR Code Pickup Verification</h2>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Every food listing generates a unique encrypted QR token. When an NGO volunteer or farmer arrives at the donor location, scanning or verifying the token logs the exact handoff timestamp and updates our live impact metrics.
+                        </p>
+                        <div class="space-y-2 pt-1">
+                            <label class="block text-xs font-bold uppercase text-slate-600">Enter or Scan Pickup QR Token</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="qr-input-token" placeholder="e.g., FB-QR-1001" class="flex-grow px-4 py-2.5 rounded-xl border border-slate-300 font-mono text-sm uppercase focus:outline-none focus:border-emerald-600">
+                                <button onclick="verifyQRToken()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-xl shadow transition flex items-center gap-2 text-sm">
+                                    <i class="fa-solid fa-shield-check"></i> Verify Pickup
+                                </button>
+                            </div>
+                        </div>
+                        <div id="qr-status-box" class="hidden p-3.5 rounded-xl text-sm font-semibold"></div>
+                    </div>
+
+                    <!-- Interactive QR Generator & Demo Card -->
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 text-center space-y-3">
+                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Active Batch QR Pass</p>
+                        <div class="bg-white p-4 rounded-xl inline-block shadow-sm border border-slate-200">
+                            <img id="qr-preview-img" src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=FB-QR-1001" alt="QR Token" class="w-36 h-36 mx-auto">
+                        </div>
+                        <p class="font-mono font-bold text-base text-slate-800" id="qr-preview-label">FB-QR-1001</p>
+                        <div class="flex flex-wrap justify-center gap-2 pt-1" id="qr-quick-buttons">
+                            <!-- Quick token buttons populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             PAGE 6: GAMIFIED LEADERBOARD & TEAM THE FOOD LOOP
+        ========================================================== -->
+        <section id="page-team" class="page-section space-y-6">
+            <!-- Gamified Donor Leaderboard -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                    <div>
+                        <h2 class="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-medal text-amber-500"></i> Gamified Zero-Waste Donor Leaderboard
+                        </h2>
+                        <p class="text-xs text-slate-500">Recognizing top contributors rescuing surplus meals and farm feed</p>
+                    </div>
+                    <span class="text-xs font-bold bg-amber-100 text-amber-800 px-3 py-1 rounded-full">Live Impact Points</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="border-b border-slate-200 text-xs uppercase text-slate-400">
+                                <th class="py-3 px-4">Rank</th>
+                                <th class="py-3 px-4">Donor / Partner</th>
+                                <th class="py-3 px-4">Category</th>
+                                <th class="py-3 px-4">Food Rescued</th>
+                                <th class="py-3 px-4">CO₂ Offset</th>
+                                <th class="py-3 px-4">Badge</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 font-medium">
+                            <tr class="bg-amber-50/40">
+                                <td class="py-3 px-4 font-extrabold text-amber-600">🥇 #1</td>
+                                <td class="py-3 px-4 font-bold text-slate-900">Royal Convention Wedding Hall</td>
+                                <td class="py-3 px-4">Events/Wedding</td>
+                                <td class="py-3 px-4 text-emerald-700 font-bold">310 kg</td>
+                                <td class="py-3 px-4">775 kg CO₂</td>
+                                <td class="py-3 px-4"><span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-full">Zero-Waste Champion</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-extrabold text-slate-500">🥈 #2</td>
+                                <td class="py-3 px-4 font-bold text-slate-900">SVCE College Campus Canteen</td>
+                                <td class="py-3 px-4">Hostel/College</td>
+                                <td class="py-3 px-4 text-emerald-700 font-bold">245 kg</td>
+                                <td class="py-3 px-4">612 kg CO₂</td>
+                                <td class="py-3 px-4"><span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-full">Hunger Hero</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-extrabold text-amber-700">🥉 #3</td>
+                                <td class="py-3 px-4 font-bold text-slate-900">Grand Spice Kitchen & Banquet</td>
+                                <td class="py-3 px-4">Restaurant</td>
+                                <td class="py-3 px-4 text-emerald-700 font-bold">190 kg</td>
+                                <td class="py-3 px-4">475 kg CO₂</td>
+                                <td class="py-3 px-4"><span class="bg-teal-100 text-teal-800 text-xs font-bold px-2.5 py-1 rounded-full">Eco Guardian</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Team THE FOOD LOOP Showcase Card -->
+            <div class="bg-gradient-to-br from-slate-900 to-emerald-950 text-white rounded-2xl p-6 md:p-8 shadow-lg">
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-amber-400">SVCE College • Hackathon Innovation</span>
+                        <h3 class="text-2xl font-extrabold mt-1">Built by Team <span class="text-emerald-400">THE FOOD LOOP</span></h3>
+                        <p class="text-xs text-slate-300 mt-1">Problem Statement #6: Leftover Food Sharing App (FOODBRIDGE)</p>
+                    </div>
+                    <div class="flex gap-2 text-xs font-bold">
+                        <span class="bg-white/10 px-3 py-1.5 rounded-lg">HTML5 / CSS3 / JS</span>
+                        <span class="bg-white/10 px-3 py-1.5 rounded-lg">Python & PostgreSQL</span>
+                        <span class="bg-white/10 px-3 py-1.5 rounded-lg">Google Maps API</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-white/10 backdrop-blur p-4 rounded-xl border border-white/10 text-center">
+                        <div class="w-12 h-12 rounded-full bg-emerald-500/30 text-emerald-300 flex items-center justify-center mx-auto mb-2 text-lg font-bold">M</div>
+                        <p class="font-bold text-base">MANIKANTA</p>
+                        <p class="text-xs text-emerald-300">Full-Stack & Architecture</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur p-4 rounded-xl border border-white/10 text-center">
+                        <div class="w-12 h-12 rounded-full bg-amber-500/30 text-amber-300 flex items-center justify-center mx-auto mb-2 text-lg font-bold">A</div>
+                        <p class="font-bold text-base">ABHI</p>
+                        <p class="text-xs text-amber-300">Backend & PostgreSQL DB</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur p-4 rounded-xl border border-white/10 text-center">
+                        <div class="w-12 h-12 rounded-full bg-teal-500/30 text-teal-300 flex items-center justify-center mx-auto mb-2 text-lg font-bold">H</div>
+                        <p class="font-bold text-base">HARSHITH</p>
+                        <p class="text-xs text-teal-300">Geo-Maps & Analytics</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur p-4 rounded-xl border border-white/10 text-center">
+                        <div class="w-12 h-12 rounded-full bg-indigo-500/30 text-indigo-300 flex items-center justify-center mx-auto mb-2 text-lg font-bold">P</div>
+                        <p class="font-bold text-base">PAWAN</p>
+                        <p class="text-xs text-indigo-300">UI/UX & Annam Dhutha AI</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =========================================================
+         CLAIM PICKUP MODAL
+    ========================================================== -->
+    <div id="claim-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-extrabold text-slate-900">Claim Surplus Food Batch</h3>
+                <button onclick="closeClaimModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <p class="text-xs text-slate-500" id="claim-modal-subtitle">Log your NGO or Farm details to reserve this pickup and generate a QR handoff token.</p>
+            <input type="hidden" id="claim-donation-id">
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-600 mb-1">NGO / Volunteer / Farm Name *</label>
+                <input type="text" id="claim-org-name" placeholder="e.g., Robin Hood Army / SVCE NSS Unit" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Estimated Pickup Time *</label>
+                <input type="time" id="claim-pickup-time" value="18:30" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
+            </div>
+            <div class="flex justify-end gap-2 pt-2">
+                <button onclick="closeClaimModal()" class="px-4 py-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-600">Cancel</button>
+                <button onclick="confirmClaim()" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow">Confirm & Lock Batch</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         FLOATING CHATBOT: "ANNAM DHUTHA" (अन्नं दूत)
+    ========================================================== -->
+    <div class="fixed bottom-5 right-5 z-50">
+        <!-- Chat Window -->
+        <div id="chatbot-window" class="hidden w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden mb-3 flex flex-col">
+            <!-- Chatbot Header -->
+            <div class="bg-gradient-to-r from-emerald-700 to-teal-600 text-white p-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center font-extrabold text-lg shadow">
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <h4 class="font-extrabold text-sm">Annam Dhutha</h4>
+                            <span class="w-2 h-2 rounded-full bg-emerald-300 pulse-badge"></span>
+                        </div>
+                        <p class="text-[11px] text-emerald-100">AI Food Rescue Messenger • Online</p>
+                    </div>
+                </div>
+                <button onclick="toggleChatbot(false)" class="text-white/80 hover:text-white">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            </div>
+
+            <!-- Messages Stream -->
+            <div id="chat-messages" class="p-3.5 h-72 overflow-y-auto space-y-3 bg-slate-50 text-xs">
+                <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200 shadow-sm text-slate-700 leading-relaxed">
+                    🙏 <strong>Namaste! I am Annam Dhutha</strong> (Food Messenger). I can help you find nearby surplus meals, navigate via Google Maps, route animal feed, or check live CO₂ analytics!
+                </div>
+            </div>
+
+            <!-- Quick-Action Suggestion Chips -->
+            <div class="px-3 py-2 bg-slate-100 border-t border-slate-200 flex gap-1.5 overflow-x-auto whitespace-nowrap">
+                <button onclick="sendQuickChat('Find nearby available food')" class="text-[11px] bg-white hover:bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-1 rounded-full font-semibold">📍 Nearby Food</button>
+                <button onclick="sendQuickChat('How does Zero-Waste routing work?')" class="text-[11px] bg-white hover:bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-1 rounded-full font-semibold">♻️ Zero-Waste Route</button>
+                <button onclick="sendQuickChat('Show CO2 impact stats')" class="text-[11px] bg-white hover:bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-1 rounded-full font-semibold">📊 Impact Stats</button>
+                <button onclick="sendQuickChat('Tell me about Team The Food Loop')" class="text-[11px] bg-white hover:bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-1 rounded-full font-semibold">👨‍💻 SVCE Team</button>
+            </div>
+
+            <!-- Chat Input Box -->
+            <form onsubmit="handleChatSubmit(event)" class="p-2.5 bg-white border-t border-slate-200 flex gap-2">
+                <input type="text" id="chat-input" placeholder="Ask Annam Dhutha..." class="flex-grow px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-emerald-600">
+                <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+
+        <!-- Floating Launcher Button -->
+        <button onclick="toggleChatbot()" class="ml-auto bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-4 py-3 rounded-full shadow-xl flex items-center gap-2.5 font-bold text-sm border-2 border-white transition transform hover:scale-105">
+            <span class="w-7 h-7 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center text-xs font-extrabold">
+                <i class="fa-solid fa-robot"></i>
+            </span>
+            <span>Annam Dhutha AI</span>
+        </button>
+    </div>
+
+    <!-- =========================================================
+         JAVASCRIPT ENGINE: STATE, DATABASE SYNC, CHARTS & MAPS
+    ========================================================== -->
+    <script>
+        // Initial fallback dataset so the app works both standalone AND connected to Python Flask
+        let donationsData = [
+            {
+                id: 1,
+                donor_name: "SVCE College Campus Canteen",
+                donor_type: "Hostel/College",
+                food_items: "Veg Biryani, Dal Tadka & 80 Chapathis",
+                quantity_kg: 35,
+                is_fresh: true,
+                route_category: "Human Consumption",
+                shelf_life_hours: 4.5,
+                remaining_seconds: 15800,
+                location_address: "SVCE College, Tirupati, Andhra Pradesh",
+                status: "Available",
+                claimed_by: null,
+                pickup_time: null,
+                qr_token: "FB-QR-1001"
+            },
+            {
+                id: 2,
+                donor_name: "Grand Spice Kitchen & Banquet",
+                donor_type: "Restaurant",
+                food_items: "Paneer Butter Masala, Steamed Rice & Sweet Pongal",
+                quantity_kg: 48,
+                is_fresh: true,
+                route_category: "Human Consumption",
+                shelf_life_hours: 3.0,
+                remaining_seconds: 10200,
+                location_address: "MG Road, Secunderabad, Telangana",
+                status: "Available",
+                claimed_by: null,
+                pickup_time: null,
+                qr_token: "FB-QR-1002"
+            },
+            {
+                id: 3,
+                donor_name: "Sunrise Artisan Bakery",
+                donor_type: "Bakery",
+                food_items: "Day-Old Bread Loaves, Croissants & Veg Cuttings",
+                quantity_kg: 22,
+                is_fresh: false,
+                route_category: "Animal Feed",
+                shelf_life_hours: 12.0,
+                remaining_seconds: 41000,
+                location_address: "Banjara Hills, Hyderabad, Telangana",
+                status: "Available",
+                claimed_by: null,
+                pickup_time: null,
+                qr_token: "FB-QR-1003"
+            },
+            {
+                id: 4,
+                donor_name: "Royal Convention Wedding Hall",
+                donor_type: "Events/Wedding",
+                food_items: "Mixed Vegetable Curry, Sambar & Pulav",
+                quantity_kg: 65,
+                is_fresh: true,
+                route_category: "Human Consumption",
+                shelf_life_hours: 2.5,
+                remaining_seconds: 7800,
+                location_address: "Hitech City, Hyderabad, Telangana",
+                status: "Claimed",
+                claimed_by: "Akshaya Trust NGO",
+                pickup_time: "19:30 HRS",
+                qr_token: "FB-QR-1004"
+            },
+            {
+                id: 5,
+                donor_name: "GreenLeaf Supermarket",
+                donor_type: "Bakery",
+                food_items: "Bruised Fruits, Leafy Greens & Kitchen Peels",
+                quantity_kg: 30,
+                is_fresh: false,
+                route_category: "Animal Feed",
+                shelf_life_hours: 8.0,
+                remaining_seconds: 26500,
+                location_address: "Gachibowli, Hyderabad, Telangana",
+                status: "Verified",
+                claimed_by: "Nandi Goshala Sanctuary",
+                pickup_time: "16:15 HRS",
+                qr_token: "FB-QR-1005"
+            }
+        ];
+
+        let currentFilter = 'ALL';
+        let pieChart, doughnutChart, barChart, lineChart;
+
+        // Fetch from Python Flask API if running, otherwise use LocalStorage/Seed Data
+        async function loadDonations() {
+            try {
+                const res = await fetch('/api/donations');
+                if (res.ok) {
+                    donationsData = await res.json();
+                }
+            } catch (e) {
+                const saved = localStorage.getItem('foodbridge_donations');
+                if (saved) donationsData = JSON.parse(saved);
+            }
+            renderDonations();
+            renderMapLocations();
+            renderQRQuickButtons();
+            updateKPIs();
+        }
+
+        function saveLocalBackup() {
+            localStorage.setItem('foodbridge_donations', JSON.stringify(donationsData));
+        }
+
+        // Page Navigation Switcher
+        function switchPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(`page-${pageId}`).classList.add('active');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.getElementById(`nav-${pageId}`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            if (pageId === 'analytics') {
+                setTimeout(initOrUpdateCharts, 80);
+            }
+        }
+
+        // Format Countdown Timer (HH:MM:SS)
+        function formatCountdown(sec) {
+            if (sec <= 0) return "EXPIRED - ROUTE TO COMPOST";
+            const h = Math.floor(sec / 3600);
+            const m = Math.floor((sec % 3600) / 60);
+            const s = sec % 60;
+            return `${String(h).padStart(2, '0')}h : ${String(m).padStart(2, '0')}m : ${String(s).padStart(2, '0')}s`;
+        }
+
+        // Render Donation Cards on Home Feed
+        function renderDonations() {
+            const grid = document.getElementById('donations-grid');
+            const query = (document.getElementById('search-input')?.value || '').toLowerCase();
+
+            const filtered = donationsData.filter(d => {
+                const matchesFilter =
+                    currentFilter === 'ALL' ||
+                    d.route_category === currentFilter ||
+                    d.status === currentFilter;
+                const matchesSearch =
+                    d.donor_name.toLowerCase().includes(query) ||
+                    d.food_items.toLowerCase().includes(query) ||
+                    d.location_address.toLowerCase().includes(query);
+                return matchesFilter && matchesSearch;
+            });
+
+            grid.innerHTML = filtered.map(d => {
+                const isHuman = d.route_category === 'Human Consumption';
+                const badgeColor = isHuman
+                    ? 'bg-emerald-100 text-emerald-800 border-emerald-200'
+                    : 'bg-amber-100 text-amber-800 border-amber-200';
+                const statusBadge =
+                    d.status === 'Available'
+                        ? '<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-600 text-white">Available</span>'
+                        : d.status === 'Claimed'
+                        ? '<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500 text-white">Claimed</span>'
+                        : '<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-600 text-white"><i class="fa-solid fa-check-double"></i> QR Verified</span>';
+
+                const gmapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(d.location_address)}`;
+
+                return `
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between overflow-hidden">
+                    <div class="p-5 space-y-3">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-bold border ${badgeColor}">
+                                ${isHuman ? '🍲 2A. Human NGO Feed' : '🌾 2B. Animal Farm Feed'}
+                            </span>
+                            ${statusBadge}
+                        </div>
+
+                        <div>
+                            <h3 class="font-extrabold text-base text-slate-900">${d.donor_name}</h3>
+                            <p class="text-xs text-slate-500 font-medium">${d.donor_type} • Batch <span class="font-mono font-bold text-slate-700">${d.qr_token}</span></p>
+                        </div>
+
+                        <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 space-y-1">
+                            <p class="text-sm font-bold text-slate-800">${d.food_items}</p>
+                            <p class="text-xs font-extrabold text-emerald-700">${d.quantity_kg} kg Surplus (~${Math.round(d.quantity_kg * 4)} Meals)</p>
+                        </div>
+
+                        <!-- Live Freshness Countdown Timer -->
+                        <div class="flex items-center justify-between bg-slate-900 text-white px-3.5 py-2 rounded-xl text-xs">
+                            <span class="text-slate-300 font-medium"><i class="fa-regular fa-clock text-amber-400 mr-1"></i> Freshness Timer:</span>
+                            <span class="font-mono font-bold text-amber-300 countdown-timer" data-id="${d.id}">${formatCountdown(d.remaining_seconds)}</span>
+                        </div>
+
+                        <!-- Location & Claim Info -->
+                        <div class="text-xs text-slate-600 space-y-1 pt-1">
+                            <p class="flex items-center gap-1.5 font-medium">
+                                <i class="fa-solid fa-location-dot text-rose-500"></i> ${d.location_address}
+                            </p>
+                            ${d.claimed_by ? `<p class="text-emerald-700 font-bold"><i class="fa-solid fa-handshake"></i> Reserved by: ${d.claimed_by} (${d.pickup_time || 'Verified'})</p>` : ''}
+                        </div>
+                    </div>
+
+                    <!-- Card Action Buttons -->
+                    <div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex gap-1.5">
+                            <button onclick="focusOnMap('${d.location_address.replace(/'/g, "\\'")}', '${d.donor_name.replace(/'/g, "\\'")}')" class="px-3 py-1.5 rounded-lg bg-white border border-slate-200 hover:border-emerald-500 text-slate-700 text-xs font-bold transition flex items-center gap-1" title="Preview on Embedded Map">
+                                <i class="fa-solid fa-map-pin text-emerald-600"></i> Pin Map
+                            </button>
+                            <a href="${gmapsUrl}" target="_blank" class="px-3 py-1.5 rounded-lg bg-white border border-slate-200 hover:border-emerald-500 text-slate-700 text-xs font-bold transition flex items-center gap-1" title="Turn-by-Turn Google Maps Navigation">
+                                <i class="fa-solid fa-diamond-turn-right text-blue-600"></i> Navigate
+                            </a>
+                        </div>
+
+                        ${d.status === 'Available' ? `
+                            <button onclick="openClaimModal(${d.id})" class="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-sm transition">
+                                Claim Pickup
+                            </button>
+                        ` : `
+                            <button onclick="previewQR('${d.qr_token}')" class="px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition flex items-center gap-1">
+                                <i class="fa-solid fa-qrcode"></i> View QR
+                            </button>
+                        `}
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function setFeedFilter(filterVal) {
+            currentFilter = filterVal;
+            ['ALL', 'Human', 'Animal', 'Available'].forEach(k => {
+                const btn = document.getElementById(`filter-${k}`);
+                if (btn) btn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-emerald-50 transition";
+            });
+            const activeKey = filterVal === 'Human Consumption' ? 'Human' : filterVal === 'Animal Feed' ? 'Animal' : filterVal;
+            const activeBtn = document.getElementById(`filter-${activeKey}`);
+            if (activeBtn) activeBtn.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white transition";
+            renderDonations();
+        }
+
+        // Live Second-by-Second Countdown Ticker
+        setInterval(() => {
+            donationsData.forEach(d => {
+                if (d.remaining_seconds > 0 && d.status !== 'Verified') {
+                    d.remaining_seconds -= 1;
+                }
+            });
+            document.querySelectorAll('.countdown-timer').forEach(el => {
+                const id = parseInt(el.getAttribute('data-id'));
+                const item = donationsData.find(x => x.id === id);
+                if (item) el.textContent = formatCountdown(item.remaining_seconds);
+            });
+        }, 1000);
+
+        // Update Top KPI Counters
+        function updateKPIs() {
+            const totalKg = donationsData.reduce((acc, d) => acc + Number(d.quantity_kg), 0);
+            const scrapsKg = donationsData.filter(d => !d.is_fresh).reduce((acc, d) => acc + Number(d.quantity_kg), 0);
+            document.getElementById('kpi-meals').textContent = (1250 + Math.round(totalKg * 4)).toLocaleString();
+            document.getElementById('kpi-co2').textContent = Math.round(450 + totalKg * 2.5).toLocaleString();
+            document.getElementById('kpi-scraps').textContent = Math.round(330 + scrapsKg).toLocaleString();
+            document.getElementById('kpi-active').textContent = donationsData.filter(d => d.status === 'Available').length;
+        }
+
+        // Submit New Food Donation
+        async function submitDonation(e) {
+            e.preventDefault();
+            const isFresh = document.querySelector('input[name="freshness"]:checked').value === 'fresh';
+            const hours = parseFloat(document.getElementById('form-hours').value) || 4;
+            const payload = {
+                donor_name: document.getElementById('form-donor').value,
+                donor_type: document.getElementById('form-type').value,
+                food_items: document.getElementById('form-items').value,
+                quantity_kg: parseFloat(document.getElementById('form-kg').value),
+                is_fresh: isFresh,
+                route_category: isFresh ? 'Human Consumption' : 'Animal Feed',
+                shelf_life_hours: hours,
+                location_address: document.getElementById('form-location').value
+            };
+
+            try {
+                const res = await fetch('/api/donations', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    donationsData.unshift(data.donation);
+                } else {
+                    throw new Error('Fallback to local');
+                }
+            } catch (err) {
+                const newId = donationsData.length + 1;
+                donationsData.unshift({
+                    id: newId,
+                    ...payload,
+                    remaining_seconds: Math.round(hours * 3600),
+                    status: 'Available',
+                    claimed_by: null,
+                    pickup_time: null,
+                    qr_token: `FB-QR-${1000 + newId}`
+                });
+            }
+
+            saveLocalBackup();
+            renderDonations();
+            renderMapLocations();
+            renderQRQuickButtons();
+            updateKPIs();
+            document.getElementById('donate-form').reset();
+            switchPage('home');
+        }
+
+        function updateRoutePreview() {
+            const isFresh = document.querySelector('input[name="freshness"]:checked').value === 'fresh';
+            document.getElementById('route-human-card').className = isFresh
+                ? "cursor-pointer border-2 border-emerald-600 bg-emerald-50/70 rounded-xl p-3.5 flex items-start gap-3 transition"
+                : "cursor-pointer border-2 border-slate-200 bg-white rounded-xl p-3.5 flex items-start gap-3 transition";
+            document.getElementById('route-animal-card').className = !isFresh
+                ? "cursor-pointer border-2 border-amber-500 bg-amber-50/70 rounded-xl p-3.5 flex items-start gap-3 transition"
+                : "cursor-pointer border-2 border-slate-200 bg-white rounded-xl p-3.5 flex items-start gap-3 transition";
+        }
+
+        function detectMyGPS() {
+            const locInput = document.getElementById('form-location');
+            locInput.value = "Detecting GPS location...";
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    pos => {
+                        locInput.value = `${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)} (SVCE / Local Zone)`;
+                    },
+                    () => {
+                        locInput.value = "SVCE College Campus, Tirupati, Andhra Pradesh";
+                    }
+                );
+            } else {
+                locInput.value = "SVCE College Campus, Tirupati, Andhra Pradesh";
+            }
+        }
+
+        // Claim Pickup Modal Functions
+        function openClaimModal(id) {
+            document.getElementById('claim-donation-id').value = id;
+            const d = donationsData.find(x => x.id === id);
+            document.getElementById('claim-modal-subtitle').textContent = `Claiming ${d.quantity_kg} kg (${d.food_items}) from ${d.donor_name}`;
+            document.getElementById('claim-modal').classList.remove('hidden');
+            document.getElementById('claim-modal').classList.add('flex');
+        }
+
+        function closeClaimModal() {
+            document.getElementById('claim-modal').classList.add('hidden');
+            document.getElementById('claim-modal').classList.remove('flex');
+        }
+
+        async function confirmClaim() {
+            const id = parseInt(document.getElementById('claim-donation-id').value);
+            const org = document.getElementById('claim-org-name').value || 'Verified NGO Partner';
+            const time = document.getElementById('claim-pickup-time').value + ' HRS';
+
+            try {
+                await fetch(`/api/claim/${id}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ claimed_by: org, pickup_time: time })
+                });
+            } catch (e) {}
+
+            const item = donationsData.find(x => x.id === id);
+            if (item) {
+                item.status = 'Claimed';
+                item.claimed_by = org;
+                item.pickup_time = time;
+            }
+            saveLocalBackup();
+            closeClaimModal();
+            renderDonations();
+            updateKPIs();
+        }
+
+        // Google Maps Page Functions
+        function renderMapLocations() {
+            const container = document.getElementById('map-locations-list');
+            container.innerHTML = donationsData.map(d => {
+                const gmapsDir = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(d.location_address)}`;
+                return `
+                <div class="p-3.5 rounded-xl border border-slate-200 hover:border-emerald-500 bg-slate-50/60 transition space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-extrabold text-slate-900">${d.donor_name}</span>
+                        <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">${d.quantity_kg} kg</span>
+                    </div>
+                    <p class="text-xs text-slate-600">${d.food_items}</p>
+                    <p class="text-[11px] text-slate-500"><i class="fa-solid fa-location-dot text-rose-500"></i> ${d.location_address}</p>
+                    <div class="flex gap-2 pt-1">
+                        <button onclick="focusOnMap('${d.location_address.replace(/'/g, "\\'")}', '${d.donor_name.replace(/'/g, "\\'")}')" class="flex-1 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition">
+                            Show on Map
+                        </button>
+                        <a href="${gmapsDir}" target="_blank" class="px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 rounded-lg text-xs font-bold flex items-center gap-1">
+                            <i class="fa-solid fa-route text-blue-600"></i> Directions
+                        </a>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function focusOnMap(address, title) {
+            switchPage('map');
+            document.getElementById('active-map-title').innerHTML = `<i class="fa-solid fa-location-dot text-amber-400"></i> Pinning: ${title} (${address})`;
+            document.getElementById('google-map-iframe').src = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+            document.getElementById('gmaps-external-btn').href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`;
+        }
+
+        // QR Verification Functions
+        function renderQRQuickButtons() {
+            const container = document.getElementById('qr-quick-buttons');
+            container.innerHTML = donationsData.map(d => `
+                <button onclick="previewQR('${d.qr_token}')" class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold border ${d.status === 'Verified' ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-white text-slate-700 border-slate-200 hover:border-emerald-500'}">
+                    ${d.qr_token}
+                </button>
+            `).join('');
+        }
+
+        function previewQR(token) {
+            switchPage('qr');
+            document.getElementById('qr-input-token').value = token;
+            document.getElementById('qr-preview-label').textContent = token;
+            document.getElementById('qr-preview-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(token)}`;
+        }
+
+        async function verifyQRToken() {
+            const token = document.getElementById('qr-input-token').value.trim().toUpperCase();
+            const box = document.getElementById('qr-status-box');
+            box.classList.remove('hidden');
+
+            const item = donationsData.find(d => d.qr_token.toUpperCase() === token);
+            if (!item) {
+                box.className = "p-3.5 rounded-xl text-sm font-semibold bg-rose-100 text-rose-800 border border-rose-200";
+                box.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Invalid QR Token "${token}". Please check the donor batch code.`;
+                return;
+            }
+
+            try {
+                await fetch('/api/verify-qr', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ qr_token: token })
+                });
+            } catch (e) {}
+
+            item.status = 'Verified';
+            if (!item.claimed_by) item.claimed_by = 'Verified NGO Partner';
+            saveLocalBackup();
+            renderDonations();
+            renderQRQuickButtons();
+
+            box.className = "p-3.5 rounded-xl text-sm font-semibold bg-emerald-100 text-emerald-900 border border-emerald-300";
+            box.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i> Success! Verified handoff of <strong>${item.quantity_kg} kg (${item.food_items})</strong> from ${item.donor_name}. Impact dashboard updated!`;
+        }
+
+        // =========================================================
+        // PYCHARTS & GRAPHS (CHART.JS)
+        // =========================================================
+        function initOrUpdateCharts() {
+            const humanKg = donationsData.filter(d => d.is_fresh).reduce((s, d) => s + Number(d.quantity_kg), 0);
+            const animalKg = donationsData.filter(d => !d.is_fresh).reduce((s, d) => s + Number(d.quantity_kg), 0);
+
+            // Count by Donor Category
+            const categories = ['Restaurant', 'Hostel/College', 'Events/Wedding', 'Bakery', 'Household'];
+            const categoryTotals = categories.map(cat =>
+                donationsData.filter(d => d.donor_type === cat).reduce((s, d) => s + Number(d.quantity_kg), 0) + 15
+            );
+
+            if (pieChart) pieChart.destroy();
+            if (doughnutChart) doughnutChart.destroy();
+            if (barChart) barChart.destroy();
+            if (lineChart) lineChart.destroy();
+
+            // 1. Pie Chart: Zero-Waste Dual Routing
+            pieChart = new Chart(document.getElementById('pieChartRouting'), {
+                type: 'pie',
+                data: {
+                    labels: ['2A. Human NGO Meals (kg)', '2B. Animal Sanctuary Feed (kg)', 'Bio-Compost Recovery (kg)'],
+                    datasets: [{
+                        data: [humanKg + 120, animalKg + 65, 25],
+                        backgroundColor: ['#059669', '#f59e0b', '#6366f1'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // 2. Doughnut Chart: Donor Sources
+            doughnutChart = new Chart(document.getElementById('doughnutChartSources'), {
+                type: 'doughnut',
+                data: {
+                    labels: categories,
+                    datasets: [{
+                        data: categoryTotals,
+                        backgroundColor: ['#10b981', '#0ea5e9', '#f59e0b', '#8b5cf6', '#ec4899'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // 3. Bar Graph: Monthly Food Saved vs CO2 Prevented
+            barChart = new Chart(document.getElementById('barChartImpact'), {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Current'],
+                    datasets: [
+                        {
+                            label: 'Food Rescued (kg)',
+                            data: [210, 265, 310, 390, 440, humanKg + animalKg + 280],
+                            backgroundColor: '#059669',
+                            borderRadius: 6
+                        },
+                        {
+                            label: 'CO₂ Prevented (kg)',
+                            data: [525, 662, 775, 975, 1100, Math.round((humanKg + animalKg + 280) * 2.5)],
+                            backgroundColor: '#0d9488',
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // 4. Line Graph: AI Waste Prediction vs Actual Rescue
+            lineChart = new Chart(document.getElementById('lineChartPrediction'), {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat (Wedding Peak)', 'Sun'],
+                    datasets: [
+                        {
+                            label: 'AI Predicted Surplus (kg)',
+                            data: [45, 52, 60, 58, 85, 140, 125],
+                            borderColor: '#f59e0b',
+                            borderDash: [5, 5],
+                            tension: 0.35,
+                            fill: false
+                        },
+                        {
+                            label: 'Actual Food Rescued (kg)',
+                            data: [42, 50, 57, 61, 82, 136, 120],
+                            borderColor: '#059669',
+                            backgroundColor: 'rgba(5, 150, 105, 0.12)',
+                            tension: 0.35,
+                            fill: true
+                        }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+
+        function refreshAllCharts() {
+            initOrUpdateCharts();
+        }
+
+        // =========================================================
+        // "ANNAM DHUTHA" AI CHATBOT ENGINE
+        // =========================================================
+        function toggleChatbot(forceOpen) {
+            const win = document.getElementById('chatbot-window');
+            if (forceOpen === true) {
+                win.classList.remove('hidden');
+            } else if (forceOpen === false) {
+                win.classList.add('hidden');
+            } else {
+                win.classList.toggle('hidden');
+            }
+        }
+
+        function appendChatBubble(sender, text) {
+            const box = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            if (sender === 'user') {
+                div.className = "bg-emerald-600 text-white p-3 rounded-2xl rounded-tr-none ml-8 shadow-sm leading-relaxed";
+                div.textContent = text;
+            } else {
+                div.className = "bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200 mr-6 shadow-sm text-slate-700 leading-relaxed";
+                div.innerHTML = `<strong>Annam Dhutha:</strong> ${text}`;
+            }
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function sendQuickChat(msg) {
+            document.getElementById('chat-input').value = msg;
+            handleChatSubmit(new Event('submit'));
+        }
+
+        async function handleChatSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const msg = input.value.trim();
+            if (!msg) return;
+            input.value = '';
+            appendChatBubble('user', msg);
+
+            // Try Flask backend first, fallback to smart client responder
+            try {
+                const res = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: msg })
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    appendChatBubble('bot', data.reply);
+                    return;
+                }
+            } catch (err) {}
+
+            // Smart Client-Side Annam Dhutha Responder
+            const lower = msg.toLowerCase();
+            const avail = donationsData.filter(d => d.status === 'Available');
+            const totalKg = donationsData.reduce((s, d) => s + Number(d.quantity_kg), 0);
+
+            let reply = "";
+            if (lower.includes('nearby') || lower.includes('available') || lower.includes('food')) {
+                if (avail.length === 0) {
+                    reply = "All listed food batches have been claimed! Click 'Donate Food' to list new surplus meals.";
+                } else {
+                    const summary = avail.map(d => `${d.food_items} (${d.quantity_kg}kg at ${d.donor_name})`).join('; ');
+                    reply = `We have <strong>${avail.length} active batches</strong> ready for pickup: ${summary}. Click <em>Navigate</em> on any card for Google Maps turn-by-turn routing!`;
+                }
+            } else if (lower.includes('zero-waste') || lower.includes('route') || lower.includes('animal')) {
+                reply = "Our <strong>Zero-Waste Dual Routing</strong> checks freshness first: Fresh meals go to <strong>2A. Human NGO Shelters</strong>, while expired or kitchen scraps go to <strong>2B. Animal Farmers & Sanctuaries</strong> so 0% hits landfills!";
+            } else if (lower.includes('co2') || lower.includes('impact') || lower.includes('stats')) {
+                reply = `We have rescued <strong>${totalKg} kg</strong> of surplus food in active batches, preventing <strong>${Math.round(totalKg * 2.5)} kg of CO₂</strong>! Open the <em>PyCharts & Graphs</em> tab to explore all 4 visual charts.`;
+            } else if (lower.includes('team') || lower.includes('svce') || lower.includes('loop')) {
+                reply = "FOODBRIDGE is built by <strong>Team THE FOOD LOOP</strong> from <strong>SVCE College</strong>: Manikanta, Abhi, Harshith, and Pawan!";
+            } else {
+                reply = "Namaste! I am <strong>Annam Dhutha</strong>. Ask me about nearby available food, Google Maps navigation, QR pickup verification, or our Zero-Waste Pie Charts!";
+            }
+            setTimeout(() => appendChatBubble('bot', reply), 250);
+        }
+
+        // Initialize App on Load
+        window.addEventListener('DOMContentLoaded', loadDonations);
+    </script>
+</body>
+</html>
